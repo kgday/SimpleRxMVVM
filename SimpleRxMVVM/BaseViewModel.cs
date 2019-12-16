@@ -17,7 +17,7 @@ namespace SimpleRxMVVM
 
         public BaseViewModel()
         {
-            Disposables = new CompositeDisposable();
+            //Disposables = new CompositeDisposable();
             _propertyChanged = new Subject<string>();
         }
 
@@ -25,8 +25,7 @@ namespace SimpleRxMVVM
 
         internal IObservable<string> PropertyChangedObservable => _propertyChanged.AsObservable();
 
-        // To detect redundant calls
-        protected CompositeDisposable Disposables { get; }
+        //protected CompositeDisposable Disposables { get; }
 
         // This code added to correctly implement the disposable pattern.
         public void Dispose()
@@ -56,17 +55,6 @@ namespace SimpleRxMVVM
             return true;
         }
 
-        //protected void OnPropertyChanged<T>(Expression<Func<T>> expression)
-        //{
-        //    if (expression == null)
-        //        throw new ArgumentNullException(nameof(expression));
-
-        //    if (!(expression.Body is MemberExpression body))
-        //        body = ((UnaryExpression)expression.Body).Operand as MemberExpression;
-        //    var propertyName = body.Member.Name;
-        //    OnPropertyChanged(propertyName);
-        //}
-
         #region IDisposable Support
 
         protected virtual void Dispose(bool disposing)
@@ -75,7 +63,7 @@ namespace SimpleRxMVVM
             {
                 if (disposing)
                 {
-                    Disposables.Dispose();
+                    //Disposables.Dispose();
                     _propertyChanged.Dispose();
                 }
 

@@ -8,9 +8,8 @@ using System.Reactive.Subjects;
 using System.Runtime.CompilerServices;
 using System.Text;
 using Microsoft.AspNetCore.Components;
-using SimpleRxMVVM;
 
-namespace BlazorApp4.Client.Shared
+namespace SimpleRxMVVM.Blazor
 {
     //much of the code copied from the source from ReactiveUI.Blazor - ReactiveComponentBase
     //use this class for when views are a part of modals so that activation doesn't occur on initialization but rather when the modal is being shown
