@@ -5,9 +5,8 @@ using System.Linq;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
-using SimpleRxMVVM;
 
-namespace BlazorApp4.Client.Shared
+namespace SimpleRxMVVM.Blazor
 {
     public class ActivatableMVVMComponentBase<T> : BaseMVVMComponentBase<T> where T : BaseActivatableViewModel
     {

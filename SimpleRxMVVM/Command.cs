@@ -7,21 +7,37 @@ using System.Windows.Input;
 
 namespace SimpleRxMVVM
 {
-    public class Command<TParameter, TResult> : BaseCommand
+    public class Command<TParameter> : BaseCommand
     {
-        private readonly Func<TParameter, TResult> _executeDelgate;
-        private readonly Action<TResult> _executionDone;
+        private readonly Action<TParameter> _executeDelgate;
 
-        public Command(Func<TParameter, TResult> executeDelegate, Action<TResult> executionDone, IObservable<bool> canExecute) : base(canExecute)
+        public Command(Action<TParameter> executeDelegate, IObservable<bool> canExecute) : base(canExecute)
         {
             _executeDelgate = executeDelegate ?? throw new ArgumentNullException(nameof(executeDelegate));
-            _executionDone = executionDone;
         }
 
         public override void Execute(object parameter)
         {
-            var result = _executeDelgate((TParameter)parameter);
-            _executionDone?.Invoke(result);
+            _executeDelgate((TParameter)parameter);
         }
+
+        public void Execute() => Execute(default(TParameter));
+    }
+
+    public class Command : BaseCommand
+    {
+        private readonly Action _executeDelgate;
+
+        public Command(Action executeDelegate, IObservable<bool> canExecute) : base(canExecute)
+        {
+            _executeDelgate = executeDelegate ?? throw new ArgumentNullException(nameof(executeDelegate));
+        }
+
+        public override void Execute(object parameter)
+        {
+            _executeDelgate();
+        }
+
+        public void Execute() => Execute(null);
     }
 }

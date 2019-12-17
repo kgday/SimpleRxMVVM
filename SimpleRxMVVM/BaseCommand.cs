@@ -17,11 +17,14 @@ namespace SimpleRxMVVM
 
         public BaseCommand(IObservable<bool> canExecute)
         {
-            _canExecuteSubscription = canExecute.Subscribe(canExec =>
-            {
-                _canExecute = canExec;
-                OnCanExecutedChanged();
-            });
+            if (canExecute != null)
+                _canExecuteSubscription = canExecute.Subscribe(canExec =>
+                {
+                    _canExecute = canExec;
+                    OnCanExecutedChanged();
+                });
+            else
+                _canExecute = true;
         }
 
         public event EventHandler CanExecuteChanged;
@@ -62,7 +65,7 @@ namespace SimpleRxMVVM
                 if (disposing)
                 {
                     // TODO: dispose managed state (managed objects).
-                    _canExecuteSubscription.Dispose();
+                    _canExecuteSubscription?.Dispose();
                 }
 
                 // TODO: free unmanaged resources (unmanaged objects) and override a finalizer below.
